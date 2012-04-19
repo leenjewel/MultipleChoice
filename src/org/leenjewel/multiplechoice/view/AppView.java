@@ -5,6 +5,7 @@
 package org.leenjewel.multiplechoice.view;
 
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -23,6 +24,7 @@ public class AppView extends javax.swing.JFrame {
      */
     public AppView() {
         initComponents();
+        setIconImage((new ImageIcon(this.getClass().getResource("/icon.jpg"))).getImage());
         initTabs();
     }
 
