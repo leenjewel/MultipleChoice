@@ -74,7 +74,7 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
 
             if (extClassName != null) {
                 URL[] us = {(zip.toURI().toURL())};
-                URLClassLoader classloader = new URLClassLoader(us);
+                URLClassLoader classloader = new URLClassLoader(us, this.getClass().getClassLoader());
                 extQuestionClass = classloader.loadClass(extClassName);
                 /*IMultipleChoiceExtensions o;
                 o = ((IMultipleChoiceExtensions)extQuestionClass.newInstance());

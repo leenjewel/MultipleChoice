@@ -324,7 +324,7 @@ public class XMLFile {
             DocumentBuilderFactory domfac = DocumentBuilderFactory.newInstance();
             try{
                 DocumentBuilder dombuilder = domfac.newDocumentBuilder();
-                Document new_dom = dombuilder.parse(new ByteArrayInputStream(xml_code.getBytes()));
+                Document new_dom = dombuilder.parse(new ByteArrayInputStream(xml_code.getBytes("UTF-8")));
                 Node new_node = (Node)new_dom.getDocumentElement();
                 new_node = this.xml_root.appendChild(this.xml_root.getOwnerDocument().importNode(new_node, true));
                 return new XMLFile((Element)new_node);

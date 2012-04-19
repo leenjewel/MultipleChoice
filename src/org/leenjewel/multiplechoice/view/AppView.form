@@ -4,6 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.JFileChooser" name="jFileChooserAppView">
     </Component>
+    <Component class="javax.swing.JOptionPane" name="jOptionPaneAppView">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBarAppView">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenuAppViewFile">
@@ -38,6 +40,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x5173;&#x4e8e;&#x672c;&#x7a0b;&#x5e8f;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAppViewAboutActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

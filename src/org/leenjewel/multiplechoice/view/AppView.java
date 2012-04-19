@@ -7,6 +7,7 @@ package org.leenjewel.multiplechoice.view;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -57,6 +58,7 @@ public class AppView extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooserAppView = new javax.swing.JFileChooser();
+        jOptionPaneAppView = new javax.swing.JOptionPane();
         jTabbedPaneAppViewTabs = new JTabbedPaneWithCloseIcons();
         jLabelAppViewStatus = new javax.swing.JLabel();
         jMenuBarAppView = new javax.swing.JMenuBar();
@@ -94,6 +96,11 @@ public class AppView extends javax.swing.JFrame {
         jMenuAppViewAbout.setText("关于");
 
         jMenuItemAppViewAbout.setText("关于本程序");
+        jMenuItemAppViewAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAppViewAboutActionPerformed(evt);
+            }
+        });
         jMenuAppViewAbout.add(jMenuItemAppViewAbout);
 
         jMenuBarAppView.add(jMenuAppViewAbout);
@@ -131,7 +138,6 @@ public class AppView extends javax.swing.JFrame {
         if (openId == JFileChooser.APPROVE_OPTION) {
             setStatusText("正在载入问卷......");
             java.awt.EventQueue.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
                     File f = jFileChooserAppView.getSelectedFile();
@@ -148,6 +154,10 @@ public class AppView extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItemAppViewQuitActionPerformed
 
+    private void jMenuItemAppViewAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAppViewAboutActionPerformed
+        this.jOptionPaneAppView.showMessageDialog(this, "问卷调查系统 by Leen(leenjewel@gmail.com)", "关于", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItemAppViewAboutActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser jFileChooserAppView;
     private javax.swing.JLabel jLabelAppViewStatus;
@@ -157,6 +167,7 @@ public class AppView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAppViewAbout;
     private javax.swing.JMenuItem jMenuItemAppViewOpen;
     private javax.swing.JMenuItem jMenuItemAppViewQuit;
-    private JTabbedPaneWithCloseIcons jTabbedPaneAppViewTabs;
+    private javax.swing.JOptionPane jOptionPaneAppView;
+    private javax.swing.JTabbedPane jTabbedPaneAppViewTabs;
     // End of variables declaration//GEN-END:variables
 }
