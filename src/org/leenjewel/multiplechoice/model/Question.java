@@ -18,12 +18,15 @@ public class Question implements IQuestion{
 
     private XMLFile head = null;
 
+    private String id = null;
+
     private String title = null;
 
     private ArrayList<ITopic> topics = null;
 
     private void buildFromXML(XMLFile source) {
         head = source.get("head");
+        id = head.get("id").getText();
         title = head.get("title").getText();
         XMLFile[] xtopics = source.gets("topic");
         for (int index = 0; index < xtopics.length; index++) {
@@ -68,6 +71,11 @@ public class Question implements IQuestion{
 
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
 }

@@ -5,13 +5,15 @@
 package org.leenjewel.multiplechoice.view;
 
 import java.awt.Component;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,11 +21,13 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.xml.parsers.ParserConfigurationException;
 import org.jdesktop.layout.GroupLayout;
+import org.leenjewel.multiplechoice.extensions.IMultipleChoiceExtensions;
 import org.leenjewel.multiplechoice.lib.XMLFile;
 import org.leenjewel.multiplechoice.model.Question;
 import org.leenjewel.multiplechoice.model.imodel.IQuestion;
 import org.leenjewel.multiplechoice.model.imodel.ITopic;
 import org.leenjewel.multiplechoice.view.iview.IQuestionView;
+import org.leenjewel.multiplechoice.view.iview.ITopicView;
 import org.xml.sax.SAXException;
 
 /**
@@ -34,17 +38,26 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
 
     private IQuestion questionModel = null;
 
-    public QuestionView(IQuestion question) {
+    private ArrayList<ITopicView> topicViews = null;
+
+    private Class extQuestionClass = null;
+
+    private Frame parentFrame = null;
+
+    public QuestionView(IQuestion question, Frame frame) {
         super();
         questionModel = question;
+        parentFrame = frame;
         initComponents();
     }
 
-    public QuestionView(File zip) {
+    public QuestionView(File zip, Frame frame) {
+        parentFrame = frame;
         try {
             ZipFile zipFile = new ZipFile(zip);
             Enumeration emu = zipFile.entries();
             int i = 0;
+            String extClassName = null;
             while(emu.hasMoreElements()){
                 ZipEntry entry = ((ZipEntry)emu.nextElement());
                 if (entry.isDirectory()){
@@ -54,38 +67,28 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
                 if ("data.xml".equalsIgnoreCase(entry.getName())){
                     XMLFile questionXML = new XMLFile(bis);
                     questionModel = new Question(questionXML);
-                } else if (entry.getName().endsWith(".class")) {
-                    try {
-                        CalculateClassLoader classLoader = new CalculateClassLoader(new URL[] {}, QuestionView.class.getClassLoader());
-                        // load jar to classpath
-                        classLoader.addURL(new File(zip.getName()).toURI().toURL());
-                        // get class full name(with package)
-                        String className = entry.getName().replace("/", ".");
-                        className = className.substring(0, className.length() - 6);
-                        // use reflect to get instance
-                        //Class<?> mainClass = Class.forName(className, true, classLoader);
-                        Class mainClass = classLoader.loadClass(className);
-                        // find main method
-                        Method mainMethod = mainClass.getMethod("runExtensions", new Class[] {String[].class });
-                        // check is REAL main method
-                        if ((mainMethod.getModifiers() & (Modifier.STATIC | Modifier.PUBLIC)) == (Modifier.STATIC | Modifier.PUBLIC)) {
-                            // do something
-                            System.out.println(zip.getName() + ":" + className);
-                            // call main method
-                            // mainMethod.invoke(null, new Object[] {new String[] {} });
-                        }
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                    }
+                    extClassName = "org.leenjewel.multiplechoice.extensions.MCExt" + questionModel.getId();
                 }
                 bis.close();
             }
+
+            if (extClassName != null) {
+                URL[] us = {(zip.toURI().toURL())};
+                URLClassLoader classloader = new URLClassLoader(us);
+                extQuestionClass = classloader.loadClass(extClassName);
+                /*IMultipleChoiceExtensions o;
+                o = ((IMultipleChoiceExtensions)extQuestionClass.newInstance());
+                o.runExtensions(questionModel);*/
+            }
+
             zipFile.close();
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(QuestionView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
             Logger.getLogger(QuestionView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(QuestionView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(QuestionView.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
@@ -106,9 +109,18 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
                 pg = pg.add(topicView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE);
                 sg = sg.add(topicView)
                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
+                getTopicViews().add(topicView);
             }
 
             javax.swing.JButton submitBtn = new javax.swing.JButton("提交问卷");
+            submitBtn.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    onSubmit(ae);
+                }
+            });
+
             pg = pg.add(submitBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE);
             sg = sg.add(submitBtn)
                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
@@ -137,17 +149,30 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
     public Component getComponent() {
         return this;
     }
-}
 
-class CalculateClassLoader extends URLClassLoader {
-
-    public CalculateClassLoader(URL[] urls, ClassLoader parent) {
-        super(urls, parent);
+    private void onSubmit(ActionEvent ae) {
+        if (extQuestionClass != null && questionModel != null) {
+            try {
+                IMultipleChoiceExtensions ext = ((IMultipleChoiceExtensions)extQuestionClass.newInstance());
+                ext.runExtensions(this);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(QuestionView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(QuestionView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
-    public void addURL(URL url) {
-        super.addURL(url);
+    public ArrayList<ITopicView> getTopicViews() {
+        if (topicViews == null) {
+            topicViews = new ArrayList<ITopicView>();
+        }
+        return topicViews;
     }
 
+    @Override
+    public Frame getAppFrame() {
+        return parentFrame;
+    }
 }

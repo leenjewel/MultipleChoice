@@ -133,7 +133,7 @@ public class AppView extends javax.swing.JFrame {
                 @Override
                 public void run() {
                     File f = jFileChooserAppView.getSelectedFile();
-                    QuestionView qview = new QuestionView(f);
+                    QuestionView qview = new QuestionView(f, AppView.this);
                     jTabbedPaneAppViewTabs.addTab(qview.getQuestionModel().getTitle(), qview);
                     setStatusText(qview.getQuestionModel().getTitle());
                 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public interface IQuestion {
 
+    public String getId();
+
     public String getTitle();
 
     public ArrayList<ITopic> getTopics();

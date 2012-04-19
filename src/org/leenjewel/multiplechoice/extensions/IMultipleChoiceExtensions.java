@@ -4,7 +4,7 @@
  */
 package org.leenjewel.multiplechoice.extensions;
 
-import org.leenjewel.multiplechoice.model.imodel.IQuestion;
+import org.leenjewel.multiplechoice.view.iview.IQuestionView;
 
 /**
  *
@@ -12,6 +12,6 @@ import org.leenjewel.multiplechoice.model.imodel.IQuestion;
  */
 public interface IMultipleChoiceExtensions {
 
-    public void runExtensions(IQuestion question);
+    public void runExtensions(IQuestionView questionView);
 
 }

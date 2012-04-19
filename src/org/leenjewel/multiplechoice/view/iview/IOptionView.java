@@ -17,4 +17,6 @@ public interface IOptionView extends IView {
     public void unSelected();
 
     public void Selected();
+
+    public boolean isSelected();
 }

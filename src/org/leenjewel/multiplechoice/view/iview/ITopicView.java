@@ -4,6 +4,7 @@
  */
 package org.leenjewel.multiplechoice.view.iview;
 
+import java.util.ArrayList;
 import org.leenjewel.multiplechoice.model.imodel.ITopic;
 
 /**
@@ -15,5 +16,7 @@ public interface ITopicView extends IView {
     public ITopic getTopicModel();
 
     public void unSelectedAll();
+
+    public ArrayList<IOptionView> getOptionViews();
 
 }

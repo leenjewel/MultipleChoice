@@ -79,7 +79,8 @@ public class TopicView extends javax.swing.JPanel implements ITopicView {
         );
     }
 
-    private ArrayList<IOptionView> getOptionViews() {
+    @Override
+    public ArrayList<IOptionView> getOptionViews() {
         if (optionViews == null) {
             optionViews = new ArrayList<IOptionView>();
         }

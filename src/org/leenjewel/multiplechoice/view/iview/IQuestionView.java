@@ -4,6 +4,8 @@
  */
 package org.leenjewel.multiplechoice.view.iview;
 
+import java.awt.Frame;
+import java.util.ArrayList;
 import org.leenjewel.multiplechoice.model.imodel.IQuestion;
 
 /**
@@ -13,5 +15,9 @@ import org.leenjewel.multiplechoice.model.imodel.IQuestion;
 public interface IQuestionView extends IView {
 
     public IQuestion getQuestionModel();
+
+    public ArrayList<ITopicView> getTopicViews();
+
+    public Frame getAppFrame();
 
 }
