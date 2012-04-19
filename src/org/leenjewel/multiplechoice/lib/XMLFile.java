@@ -30,7 +30,7 @@ public class XMLFile {
             File xml_fp = new File(xml_path);
             if (!xml_fp.exists()) xml_fp.createNewFile();
             BufferedWriter output = new BufferedWriter(new FileWriter(xml_fp));
-            output.write(new String(this.toCode().getBytes(),encode));
+            output.write(new String(this.toCode(encode).getBytes(),encode));
             output.close();
             return true;
         }
@@ -255,14 +255,17 @@ public class XMLFile {
     	return result;
     }
 
+    public String toCode() {
+        return toCode("UTF-8");
+    }
 
-    public String toCode(){
+    public String toCode(String encode){
         StringWriter strWtr = new StringWriter();
         StreamResult strResult = new StreamResult(strWtr);
         TransformerFactory tfac = TransformerFactory.newInstance();
         try{
             Transformer t = tfac.newTransformer();
-            t.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+            t.setOutputProperty(OutputKeys.ENCODING, encode);
             t.setOutputProperty(OutputKeys.INDENT, "yes");
             t.setOutputProperty(OutputKeys.METHOD, "xml");
             t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
