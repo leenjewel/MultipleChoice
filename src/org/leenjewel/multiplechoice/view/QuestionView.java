@@ -41,8 +41,6 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
 
     private ArrayList<ITopicView> topicViews = null;
 
-    private Class extQuestionClass = null;
-
     private Frame parentFrame = null;
 
     public QuestionView(IQuestion question, Frame frame) {
@@ -139,7 +137,7 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
     }
 
     private void onSubmit(ActionEvent ae) {
-        if (extQuestionClass != null && questionModel != null) {
+        if (questionModel != null) {
             try {
                 IMultipleChoiceExtensions ext = MCExtManager.getInstance().getExtension(questionModel.getId());
                 ext.runExtensions(this);
