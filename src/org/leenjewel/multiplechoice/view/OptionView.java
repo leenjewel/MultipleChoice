@@ -24,7 +24,7 @@ public class OptionView extends JRadioButton implements IOptionView {
 
     private IOption optionModel = null;
 
-    public OptionView(IQuestionView questioView, ITopicView topicView, IOption optionModel) {
+    public OptionView(IQuestionView questionView, ITopicView topicView, IOption optionModel) {
         super();
         this.questionView = questionView;
         this.topicView = topicView;
