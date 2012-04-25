@@ -20,4 +20,14 @@ public interface IQuestionView extends IView {
 
     public Frame getAppFrame();
 
+    public void startDoQuestion();
+
+    public void endDoQuestion();
+
+    public long getStartTime();
+
+    public long getDoTime();
+
+    public boolean isAllDone();
+
 }

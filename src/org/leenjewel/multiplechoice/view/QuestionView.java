@@ -11,14 +11,14 @@ import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.ParserConfigurationException;
 import org.jdesktop.layout.GroupLayout;
 import org.leenjewel.multiplechoice.extensions.IMultipleChoiceExtensions;
@@ -42,6 +42,10 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
     private ArrayList<ITopicView> topicViews = null;
 
     private Frame parentFrame = null;
+
+    private long startTime = -1;
+
+    private long doTime = -1;
 
     public QuestionView(IQuestion question, Frame frame) {
         super();
@@ -91,7 +95,7 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
                 .addContainerGap();
 
             for (ITopic topic : questionModel.getTopics()) {
-                TopicView topicView = new TopicView(topic);
+                TopicView topicView = new TopicView(this, topic);
                 pg = pg.add(topicView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE);
                 sg = sg.add(topicView)
                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
@@ -103,7 +107,12 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    onSubmit(ae);
+                    if (isAllDone()) {
+                        endDoQuestion();
+                        onSubmit(ae);
+                    } else {
+                        JOptionPane.showMessageDialog(getAppFrame(), "你的问卷还未答完，不能交卷，请仔细作答！", "警告", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             });
 
@@ -162,5 +171,37 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
     @Override
     public Frame getAppFrame() {
         return parentFrame;
+    }
+
+    @Override
+    public void startDoQuestion() {
+        if (startTime < 0) {
+            startTime = (new Date()).getTime();
+        }
+    }
+
+    @Override
+    public void endDoQuestion() {
+        if (doTime < 0) {
+            doTime = (new Date()).getTime() - startTime;
+        }
+    }
+
+    @Override
+    public long getDoTime() {
+        return doTime;
+    }
+
+    @Override
+    public boolean isAllDone() {
+        for (ITopicView topicView : getTopicViews()) {
+            if (topicView.hasDone() == false) { return false; }
+        }
+        return true;
+    }
+
+    @Override
+    public long getStartTime() {
+        return startTime;
     }
 }

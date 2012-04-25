@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import org.leenjewel.multiplechoice.model.imodel.IOption;
 import org.leenjewel.multiplechoice.view.iview.IOptionView;
+import org.leenjewel.multiplechoice.view.iview.IQuestionView;
 import org.leenjewel.multiplechoice.view.iview.ITopicView;
 
 /**
@@ -17,12 +18,15 @@ import org.leenjewel.multiplechoice.view.iview.ITopicView;
  */
 public class OptionView extends JRadioButton implements IOptionView {
 
+    private IQuestionView questionView = null;
+
     private ITopicView topicView = null;
 
     private IOption optionModel = null;
 
-    public OptionView(ITopicView topicView, IOption optionModel) {
+    public OptionView(IQuestionView questioView, ITopicView topicView, IOption optionModel) {
         super();
+        this.questionView = questionView;
         this.topicView = topicView;
         this.optionModel = optionModel;
         initComponents();
@@ -35,6 +39,7 @@ public class OptionView extends JRadioButton implements IOptionView {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                questionView.startDoQuestion();
                 topicView.unSelectedAll();
                 setSelected(true);
             }

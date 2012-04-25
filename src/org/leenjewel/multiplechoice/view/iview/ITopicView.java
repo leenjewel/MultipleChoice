@@ -19,4 +19,6 @@ public interface ITopicView extends IView {
 
     public ArrayList<IOptionView> getOptionViews();
 
+    public boolean hasDone();
+
 }

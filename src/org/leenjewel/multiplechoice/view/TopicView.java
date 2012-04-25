@@ -10,6 +10,7 @@ import org.jdesktop.layout.GroupLayout;
 import org.leenjewel.multiplechoice.model.imodel.IOption;
 import org.leenjewel.multiplechoice.model.imodel.ITopic;
 import org.leenjewel.multiplechoice.view.iview.IOptionView;
+import org.leenjewel.multiplechoice.view.iview.IQuestionView;
 import org.leenjewel.multiplechoice.view.iview.ITopicView;
 
 /**
@@ -18,12 +19,15 @@ import org.leenjewel.multiplechoice.view.iview.ITopicView;
  */
 public class TopicView extends javax.swing.JPanel implements ITopicView {
 
+    private IQuestionView questionView;
+
     private ITopic topicModel;
 
     private ArrayList<IOptionView> optionViews = null;
 
-    public TopicView(ITopic topicModel) {
+    public TopicView(IQuestionView questionView, ITopic topicModel) {
         super();
+        this.questionView = questionView;
         this.topicModel = topicModel;
         initComponents();
     }
@@ -51,13 +55,13 @@ public class TopicView extends javax.swing.JPanel implements ITopicView {
 
         for (IOption option : topicModel.getOptions()) {
             if (topicModel.isMultipleTopic()) {
-                MultipleOptionView optionView = (new MultipleOptionView(this, option));
+                MultipleOptionView optionView = (new MultipleOptionView(this.questionView, this, option));
                 pg = pg.add(optionView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
                 sg.add(optionView)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
                 getOptionViews().add(optionView);
             } else {
-                OptionView optionView = (new OptionView(this, option));
+                OptionView optionView = (new OptionView(this.questionView, this, option));
                 pg = pg.add(optionView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
                 sg.add(optionView)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
@@ -102,6 +106,14 @@ public class TopicView extends javax.swing.JPanel implements ITopicView {
     @Override
     public Component getComponent() {
         return this;
+    }
+
+    @Override
+    public boolean hasDone() {
+        for (IOptionView optionView : getOptionViews()) {
+            if (optionView.isSelected()) { return true; }
+        }
+        return false;
     }
 
 }
