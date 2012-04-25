@@ -12,7 +12,7 @@ public class JScrollPaneWithComponent extends JScrollPane {
 		super(c, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.component = c;
 		this.setPreferredSize(this.component.getPreferredSize());
-                this.getVerticalScrollBar().setUnitIncrement(this.component.getPreferredSize().height/40);
+                this.getVerticalScrollBar().setUnitIncrement(this.component.getPreferredSize().height/100);
 	}
 
 	public Component getComponent(){
