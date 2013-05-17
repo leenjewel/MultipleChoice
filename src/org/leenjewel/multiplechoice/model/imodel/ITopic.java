@@ -32,5 +32,9 @@ public interface ITopic {
     public boolean isMultipleTopic();
 
     public void setMultipleTopic(boolean isMultiple);
+    
+    public void setAnswer(String answer);
+    
+    public String getAnswer();
 
 }

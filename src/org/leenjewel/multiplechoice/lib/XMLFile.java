@@ -110,21 +110,81 @@ public class XMLFile {
     public String getText(){
         return this.xml_root.getTextContent();
     }
+    
+    public String getText(String node, String def) {
+        XMLFile xf = this.get(node);
+        if (null == xf) {
+            return def;
+        }
+        return xf.getText();
+    }
+    
+    public String getText(String node) {
+        return this.getText(node, "");
+    }
 
     public int getInteger(){
         return Integer.valueOf(xml_root.getTextContent());
+    }
+    
+    public int getInteger(String node, int def) {
+        XMLFile xf = this.get(node);
+        if (null == xf) {
+            return def;
+        }
+        return xf.getInteger();
+    }
+    
+    public int getInteger(String node) {
+        return this.getInteger(node, 0);
     }
 
     public float getFloat(){
         return Float.valueOf(xml_root.getTextContent());
     }
+    
+    public float getFloat(String node, float def) {
+        XMLFile xf = this.get(node);
+        if (null == xf) {
+            return def;
+        }
+        return xf.getFloat();
+    }
+    
+    public float getFloat(String node) {
+        return this.getFloat(node, 0);
+    }
 
     public double getDouble(){
         return Double.valueOf(xml_root.getTextContent());
     }
+    
+    public double getDouble(String node, double def) {
+        XMLFile xf = this.get(node);
+        if (null == xf) {
+            return def;
+        }
+        return xf.getDouble();
+    }
+    
+    public double getDouble(String node) {
+        return this.getDouble(node, 0);
+    }
 
     public boolean getBoolean(){
         return "true".equalsIgnoreCase(getText());
+    }
+    
+    public boolean getBoolean(String node, boolean def) {
+        XMLFile xf = this.get(node);
+        if (null == xf) {
+            return def;
+        }
+        return xf.getBoolean();
+    }
+    
+    public boolean getBoolean(String node) {
+        return this.getBoolean(node, false);
     }
 
     public void setText(String text){

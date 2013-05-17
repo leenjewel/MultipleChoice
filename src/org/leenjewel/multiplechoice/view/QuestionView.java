@@ -18,9 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.ParserConfigurationException;
-import org.jdesktop.layout.GroupLayout;
 import org.leenjewel.multiplechoice.extensions.IMultipleChoiceExtensions;
 import org.leenjewel.multiplechoice.extensions.MCExtManager;
 import org.leenjewel.multiplechoice.lib.XMLFile;
@@ -86,20 +86,12 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
 
     private void initComponents() {
         if (questionModel != null) {
-            org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+            BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
             this.setLayout(layout);
-
-            GroupLayout.ParallelGroup pg = layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING);
-
-            GroupLayout.SequentialGroup sg = layout.createSequentialGroup()
-                .addContainerGap();
 
             for (ITopic topic : questionModel.getTopics()) {
                 TopicView topicView = new TopicView(this, topic);
-                pg = pg.add(topicView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE);
-                sg = sg.add(topicView)
-                       .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
-                getTopicViews().add(topicView);
+                this.add(topicView);
             }
 
             javax.swing.JButton submitBtn = new javax.swing.JButton("提交问卷");
@@ -116,22 +108,7 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
                 }
             });
 
-            pg = pg.add(submitBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE);
-            sg = sg.add(submitBtn)
-                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
-
-            layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(pg)
-                    .addContainerGap())
-            );
-
-            layout.setVerticalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(sg.addContainerGap(256, Short.MAX_VALUE))
-            );
+            this.add(submitBtn);
         }
     }
 

@@ -32,11 +32,13 @@ public class Question implements IQuestion{
         for (int index = 0; index < xtopics.length; index++) {
             XMLFile topic = xtopics[index];
             String id = topic.get("id").getText();
-            String content = topic.get("content").getText();
-            Boolean multiple = topic.get("multiple").getBoolean();
+            String content = topic.getText("content");
+            Boolean multiple = topic.getBoolean("multiple");
+            String answer = topic.getText("answer");
             ITopic t = new Topic();
             t.setId(id);
             t.setContent(content);
+            t.setAnswer(answer);
             if (multiple == true) {
                 t.setMultipleTopic(true);
             }
@@ -45,7 +47,7 @@ public class Question implements IQuestion{
             for (int tindex = 0; tindex < options.length; tindex++) {
                 XMLFile option = options[tindex];
                 IOption o = new Option();
-                o.setContent(option.get("content").getText());
+                o.setContent(option.getText("content"));
                 o.setOption(option.get("id").getText());
                 t.addOption(o);
             }

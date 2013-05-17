@@ -22,6 +22,8 @@ public class Topic implements ITopic {
     private ArrayList<IOption> options = null;
 
     private boolean multiple = false;
+    
+    private String answer = "";
 
     @Override
     public String getContent() {
@@ -76,4 +78,13 @@ public class Topic implements ITopic {
         this.id = id;
     }
 
+    @Override
+    public String getAnswer() {
+        return this.answer;
+    }
+
+    @Override
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 }
