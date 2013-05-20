@@ -17,5 +17,7 @@ public interface IQuestion {
     public String getTitle();
 
     public ArrayList<ITopic> getTopics();
+    
+    public boolean couldForceSubmit();
 
 }

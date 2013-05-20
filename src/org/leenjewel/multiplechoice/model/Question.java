@@ -23,11 +23,14 @@ public class Question implements IQuestion{
     private String title = null;
 
     private ArrayList<ITopic> topics = null;
+    
+    private boolean couldForceSubmit = false;
 
     private void buildFromXML(XMLFile source) {
         head = source.get("head");
         id = head.get("id").getText();
         title = head.get("title").getText();
+        couldForceSubmit = head.getBoolean("couldForceSubmit", false);
         XMLFile[] xtopics = source.gets("topic");
         for (int index = 0; index < xtopics.length; index++) {
             XMLFile topic = xtopics[index];
@@ -52,7 +55,6 @@ public class Question implements IQuestion{
                 t.addOption(o);
             }
             addTopic(t);
-
         }
     }
 
@@ -78,6 +80,11 @@ public class Question implements IQuestion{
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public boolean couldForceSubmit() {
+        return couldForceSubmit;
     }
 
 }

@@ -36,5 +36,7 @@ public interface ITopic {
     public void setAnswer(String answer);
     
     public String getAnswer();
+    
+    public String getAnswerContent();
 
 }

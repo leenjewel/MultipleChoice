@@ -87,4 +87,14 @@ public class Topic implements ITopic {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String getAnswerContent() {
+        for (IOption option : this.getOptions()) {
+            if (option.getOption().equalsIgnoreCase(answer)) {
+                return option.getContent();
+            }
+        }
+        return "";
+    }
 }

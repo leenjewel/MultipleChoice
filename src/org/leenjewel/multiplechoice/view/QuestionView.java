@@ -86,20 +86,16 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
 
     private void initComponents() {
         if (questionModel != null) {
+            topicViews = this.getTopicViews();
             BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
             this.setLayout(layout);
-
-            for (ITopic topic : questionModel.getTopics()) {
-                TopicView topicView = new TopicView(this, topic);
-                this.add(topicView);
-            }
-
+            
             javax.swing.JButton submitBtn = new javax.swing.JButton("提交问卷");
             submitBtn.addActionListener(new ActionListener(){
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    if (isAllDone()) {
+                    if (QuestionView.this.questionModel.couldForceSubmit() || isAllDone()) {
                         endDoQuestion();
                         onSubmit(ae);
                     } else {
@@ -107,8 +103,13 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
                     }
                 }
             });
-
             this.add(submitBtn);
+
+            for (ITopic topic : questionModel.getTopics()) {
+                TopicView topicView = new TopicView(this, topic);
+                this.add(topicView);
+                topicViews.add(topicView);
+            }
         }
     }
 

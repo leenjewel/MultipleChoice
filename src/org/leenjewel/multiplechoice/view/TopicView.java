@@ -43,7 +43,7 @@ public class TopicView extends javax.swing.JPanel implements ITopicView {
         this.setLayout(layout);
 
         GroupLayout.ParallelGroup pg = layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(jLabelTopicId, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                 .add(jLabelTopicId, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jLabelTopicContent, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
 
         GroupLayout.SequentialGroup sg = layout.createSequentialGroup()
