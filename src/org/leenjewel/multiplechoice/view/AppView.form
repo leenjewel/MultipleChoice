@@ -21,6 +21,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAppViewOpenActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSubmit">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x63d0;&#x4ea4;&#x8bd5;&#x5377;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSubmitActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAppViewQuit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x9000;&#x51fa;"/>
@@ -56,6 +64,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBarAppView"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -77,6 +86,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jTabbedPaneAppViewTabs" pref="835" max="32767" attributes="0"/>
                   <Component id="jLabelAppViewStatus" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jButtonSubmit" min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -86,7 +99,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPaneAppViewTabs" pref="483" max="32767" attributes="0"/>
+              <Component id="jButtonSubmit" min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPaneAppViewTabs" pref="432" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabelAppViewStatus" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -106,6 +121,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x6b22;&#x8fce;&#x4f7f;&#x7528;&#xff01;"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonSubmit">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x63d0;&#x4ea4;&#x8bd5;&#x5377;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSubmitActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

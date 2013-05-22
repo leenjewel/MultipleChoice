@@ -61,9 +61,11 @@ public class AppView extends javax.swing.JFrame {
         jOptionPaneAppView = new javax.swing.JOptionPane();
         jTabbedPaneAppViewTabs = new JTabbedPaneWithCloseIcons();
         jLabelAppViewStatus = new javax.swing.JLabel();
+        jButtonSubmit = new javax.swing.JButton();
         jMenuBarAppView = new javax.swing.JMenuBar();
         jMenuAppViewFile = new javax.swing.JMenu();
         jMenuItemAppViewOpen = new javax.swing.JMenuItem();
+        jMenuItemSubmit = new javax.swing.JMenuItem();
         jMenuItemAppViewQuit = new javax.swing.JMenuItem();
         jMenuAppViewAbout = new javax.swing.JMenu();
         jMenuItemAppViewAbout = new javax.swing.JMenuItem();
@@ -72,6 +74,13 @@ public class AppView extends javax.swing.JFrame {
         setTitle("问卷调查");
 
         jLabelAppViewStatus.setText("欢迎使用！");
+
+        jButtonSubmit.setText("提交试卷");
+        jButtonSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSubmitActionPerformed(evt);
+            }
+        });
 
         jMenuAppViewFile.setText("文件");
 
@@ -82,6 +91,14 @@ public class AppView extends javax.swing.JFrame {
             }
         });
         jMenuAppViewFile.add(jMenuItemAppViewOpen);
+
+        jMenuItemSubmit.setText("提交试卷");
+        jMenuItemSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSubmitActionPerformed(evt);
+            }
+        });
+        jMenuAppViewFile.add(jMenuItemSubmit);
 
         jMenuItemAppViewQuit.setText("退出");
         jMenuItemAppViewQuit.addActionListener(new java.awt.event.ActionListener() {
@@ -115,14 +132,19 @@ public class AppView extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jTabbedPaneAppViewTabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 835, Short.MAX_VALUE)
-                    .add(jLabelAppViewStatus, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jLabelAppViewStatus, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(jButtonSubmit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPaneAppViewTabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .add(jButtonSubmit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jTabbedPaneAppViewTabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabelAppViewStatus)
                 .addContainerGap())
@@ -150,6 +172,13 @@ public class AppView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemAppViewOpenActionPerformed
 
+    private void submitQuestion() {
+        QuestionView view = (QuestionView)this.jTabbedPaneAppViewTabs.getSelectedComponent();
+        if (null != view) {
+            view.submit();
+        }
+    }
+    
     private void jMenuItemAppViewQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAppViewQuitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItemAppViewQuitActionPerformed
@@ -158,7 +187,16 @@ public class AppView extends javax.swing.JFrame {
         this.jOptionPaneAppView.showMessageDialog(this, "问卷调查系统 by Leen(leenjewel@gmail.com)", "关于", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItemAppViewAboutActionPerformed
 
+    private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
+        this.submitQuestion();
+    }//GEN-LAST:event_jButtonSubmitActionPerformed
+
+    private void jMenuItemSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSubmitActionPerformed
+        this.submitQuestion();
+    }//GEN-LAST:event_jMenuItemSubmitActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonSubmit;
     private javax.swing.JFileChooser jFileChooserAppView;
     private javax.swing.JLabel jLabelAppViewStatus;
     private javax.swing.JMenu jMenuAppViewAbout;
@@ -167,6 +205,7 @@ public class AppView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAppViewAbout;
     private javax.swing.JMenuItem jMenuItemAppViewOpen;
     private javax.swing.JMenuItem jMenuItemAppViewQuit;
+    private javax.swing.JMenuItem jMenuItemSubmit;
     private javax.swing.JOptionPane jOptionPaneAppView;
     private javax.swing.JTabbedPane jTabbedPaneAppViewTabs;
     // End of variables declaration//GEN-END:variables

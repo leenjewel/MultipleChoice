@@ -89,21 +89,6 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
             topicViews = this.getTopicViews();
             BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
             this.setLayout(layout);
-            
-            javax.swing.JButton submitBtn = new javax.swing.JButton("提交问卷");
-            submitBtn.addActionListener(new ActionListener(){
-
-                @Override
-                public void actionPerformed(ActionEvent ae) {
-                    if (QuestionView.this.questionModel.couldForceSubmit() || isAllDone()) {
-                        endDoQuestion();
-                        onSubmit(ae);
-                    } else {
-                        JOptionPane.showMessageDialog(getAppFrame(), "你的问卷还未答完，不能交卷，请仔细作答！", "警告", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                }
-            });
-            this.add(submitBtn);
 
             for (ITopic topic : questionModel.getTopics()) {
                 TopicView topicView = new TopicView(this, topic);
@@ -181,5 +166,14 @@ public class QuestionView extends javax.swing.JPanel implements IQuestionView{
     @Override
     public long getStartTime() {
         return startTime;
+    }
+
+    public void submit() {
+        if (this.questionModel.couldForceSubmit() || isAllDone()) {
+            endDoQuestion();
+            onSubmit(null);
+        } else {
+            JOptionPane.showMessageDialog(getAppFrame(), "你的问卷还未答完，不能交卷，请仔细作答！", "警告", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }
